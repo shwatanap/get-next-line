@@ -6,7 +6,7 @@
 /*   By: shwatana <shwatana@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 10:32:35 by shwatana          #+#    #+#             */
-/*   Updated: 2022/03/27 18:14:54 by shwatana         ###   ########.fr       */
+/*   Updated: 2022/03/29 10:09:29 by shwatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,7 @@ typedef struct s_list
 	struct s_list	*prev;
 	struct s_list	*next;
 }	t_list;
+
+char	*ft_strjoin(const char *s1, const char *s2);
 
 #endif
