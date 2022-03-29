@@ -6,22 +6,23 @@
 /*   By: shwatana <shwatana@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 10:36:52 by shwatana          #+#    #+#             */
-/*   Updated: 2022/03/27 15:00:13 by shwatana         ###   ########.fr       */
+/*   Updated: 2022/03/29 22:56:15 by shwatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static t_list	new_str_list(int fd);
-static t_list	find_list_by_fd(int fd, t_list *str_list);
-static t_list	read_buf(int fd);
+static t_list	*new_str_list(int fd);
+static t_list	*find_list_by_fd(int fd, t_list *str_list);
+static bool		read_buf(t_list *str_list);
 
 char	*get_next_line(int fd)
 {
 	int		n;
 	char	*buf;
 	char	*line;
-	char	*target;
+	bool	is_read;
+	t_list	*target;
 	t_list	*str_list;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
@@ -33,12 +34,12 @@ char	*get_next_line(int fd)
 			return (NULL);
 	}
 	target = find_list_by_fd(fd, str_list);
-	// buf = (char *)malloc(sizeof(char) * ((size_t)BUFFER_SIZE + 1));
-	// n = read(fd, buf, sizeof buf);
-	// if (n < 0)
-	// 	return (NULL);
-	// if (n == 0)
-	// 	return (NULL);
+	is_read = read_buf(target);
+	while (target != NULL)
+	{
+		printf("%s\n", target->text);
+		target = target->next;
+	}
 	return (line);
 }
 
@@ -58,7 +59,7 @@ static t_list	*find_list_by_fd(int fd, t_list *str_list)
 	return (new_list);
 }
 
-static t_list	new_str_list(int fd)
+static t_list	*new_str_list(int fd)
 {
 	t_list	*new_list;
 
@@ -93,7 +94,7 @@ static bool	read_buf(t_list *str_list)
 			return (false);
 		}
 		buf[read_size] = '\0';
-		// node->storage = ft_strjoin_with_free(node->storage, buf);
+		str_list->text = ft_strjoin(str_list->text, buf);
 		free(buf);
 		if (str_list->text == NULL)
 			return (false);
