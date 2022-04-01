@@ -6,7 +6,7 @@
 /*   By: shwatana <shwatana@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 18:13:17 by shwatana          #+#    #+#             */
-/*   Updated: 2022/03/29 10:24:59 by shwatana         ###   ########.fr       */
+/*   Updated: 2022/04/02 01:07:42 by shwatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_strjoin(const char *s1, const char *s2)
 		return (ft_strdup(s1));
 	s1_len = ft_strlen(s1);
 	s2_len = ft_strlen(s2);
-	new_str = (char *)calloc(s1_len + s2_len + 1, sizeof(char));
+	new_str = (char *)ft_calloc(s1_len + s2_len + 1, sizeof(char));
 	if (new_str == NULL)
 		return (NULL);
 	ft_strlcpy(new_str, s1, s1_len + 1);
