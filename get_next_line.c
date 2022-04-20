@@ -6,7 +6,7 @@
 /*   By: shwatana <shwatana@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 10:36:52 by shwatana          #+#    #+#             */
-/*   Updated: 2022/04/18 18:22:29 by shwatana         ###   ########.fr       */
+/*   Updated: 2022/04/20 18:33:28 by shwatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,6 @@ char	*get_next_line(int fd)
 	strage = read_buf(strage, fd);
 	if (strage == NULL)
 		return (NULL);
-	// line = format_line(line, strage);
-	// printf("======\n");
-	// printf("%s\n", format_line(line, strage));
-	// printf("======\n");
 	line = format_line(strage);
 	strage = ft_strage(strage);
 	return (line);
@@ -41,7 +37,7 @@ static char	*format_line(char *strage)
 	char	*line;
 
 	i = 0;
-	if (strage == NULL)
+	if (strage == NULL || !strage[i])
 		return (NULL);
 	while (strage[i] == '\n' || strage[i] == '\0')
 		i++;
@@ -78,7 +74,7 @@ char	*ft_strage(char *strage)
 		return (NULL);
 	}
 	new_strage = (char *)malloc(sizeof(char) * (ft_strlen(strage) - size + 1));
-	if (!new_strage)
+	if (new_strage == NULL)
 		return (NULL);
 	size++;
 	c = 0;
@@ -100,7 +96,6 @@ static char	*read_buf(char *strage, int fd)
 		if (buf == NULL)
 			return (NULL);
 		read_size = read(fd, buf, BUFFER_SIZE);
-		// printf("read_size: %d\n", read_size);
 		if (read_size <= 0)
 		{
 			free(buf);
