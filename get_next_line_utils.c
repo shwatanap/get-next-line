@@ -6,17 +6,16 @@
 /*   By: shwatana <shwatana@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 18:13:17 by shwatana          #+#    #+#             */
-/*   Updated: 2022/04/02 01:07:42 by shwatana         ###   ########.fr       */
+/*   Updated: 2022/04/20 18:11:56 by shwatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_utils.h"
 
-static void		*ft_calloc(size_t num, size_t size);
-static char		*ft_strdup(const char *str);
-static size_t	ft_strlcat(char *dst, const char *src, size_t size);
-static size_t	ft_strlcpy(char *dest, const char *src, size_t size);
-static size_t	ft_strlen(const char *s);
+static void		*ft_calloc(size_t count, size_t size);
+char			*ft_strdup(const char *str);
+size_t			ft_strlen(const char *s);
+void			*ft_memmove(void *dst, const void *src, size_t size);
 
 char	*ft_strjoin(const char *s1, const char *s2)
 {
@@ -32,15 +31,15 @@ char	*ft_strjoin(const char *s1, const char *s2)
 		return (ft_strdup(s1));
 	s1_len = ft_strlen(s1);
 	s2_len = ft_strlen(s2);
-	new_str = (char *)ft_calloc(s1_len + s2_len + 1, sizeof(char));
+	new_str = (char *)malloc(sizeof(char) * (s1_len + s2_len + 1));
 	if (new_str == NULL)
 		return (NULL);
-	ft_strlcpy(new_str, s1, s1_len + 1);
-	ft_strlcat(new_str, s2, s1_len + s2_len + 1);
+	ft_memmove(new_str, s1, s1_len + 1);
+	ft_memmove(new_str + s1_len, s2, s2_len + 1);
 	return (new_str);
 }
 
-static char	*ft_strdup(const char *str)
+char	*ft_strdup(const char *str)
 {
 	int		i;
 	int		len;
@@ -59,68 +58,52 @@ static char	*ft_strdup(const char *str)
 	return (new_char);
 }
 
-static void	*ft_calloc(size_t num, size_t size)
+void	*ft_memmove(void *dst, const void *src, size_t size)
 {
-	void	*buf;
-	size_t	i;
-	char	*str;
+	unsigned char	*dst_p;
+	unsigned char	*src_p;
 
-	buf = (void *)malloc(size * num);
-	if (buf != NULL)
-	{
-		str = (char *)buf;
-		i = 0;
-		while (i < size * num)
-		{
-			str[i] = '\0';
-			i++;
-		}
-	}
-	return (buf);
-}
-
-size_t	ft_strlcat(char *dst, const char *src, size_t size)
-{
-	size_t	cnt;
-
-	if (size == 0 || ft_strlen(dst) >= size)
-		return (size + ft_strlen(src));
-	cnt = 0;
-	while (*dst && (cnt < size - 1))
-	{
-		dst++;
-		cnt++;
-	}
-	while (*src && (cnt < size - 1))
-	{
-		*dst++ = *src++;
-		cnt++;
-	}
-	*dst = '\0';
-	while (*src++)
-		cnt++;
-	return (cnt);
-}
-
-static size_t	ft_strlcpy(char *dest, const char *src, size_t size)
-{
-	size_t	i;
-	size_t	srclen;
-
-	i = 0;
-	srclen = ft_strlen(src);
 	if (size == 0)
-		return (srclen);
-	while (i < size - 1 && src[i] != '\0')
+		return (dst);
+	if (dst == NULL && src == NULL)
+		return (NULL);
+	dst_p = (unsigned char *)dst;
+	src_p = (unsigned char *)src;
+	if (dst_p < src_p)
+		while (size--)
+			*dst_p++ = *src_p++;
+	else
+		while (size--)
+			dst_p[size] = src_p[size];
+	return (dst_p);
+}
+
+static void	*ft_calloc(size_t count, size_t size)
+{
+	void	*p;
+	char	*str;
+	size_t	m_size;
+	size_t	i;
+
+	if (size != 0 && SIZE_MAX / size < count)
+		return (NULL);
+	m_size = count * size;
+	if (m_size == 0)
+		m_size = 1;
+	p = malloc(m_size);
+	if (p == NULL)
+		return (NULL);
+	str = (char *)p;
+	i = 0;
+	while (i < size * count)
 	{
-		dest[i] = src[i];
+		str[i] = '\0';
 		i++;
 	}
-	dest[i] = '\0';
-	return (srclen);
+	return (p);
 }
 
-static size_t	ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 
