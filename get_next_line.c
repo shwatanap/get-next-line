@@ -6,7 +6,7 @@
 /*   By: shwatana <shwatana@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 10:36:52 by shwatana          #+#    #+#             */
-/*   Updated: 2022/04/20 18:33:28 by shwatana         ###   ########.fr       */
+/*   Updated: 2022/04/21 02:24:28 by shwatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ static char	*format_line(char *strage)
 	char	*line;
 
 	i = 0;
-	if (strage == NULL || !strage[i])
+	if (!strage[i])
 		return (NULL);
-	while (strage[i] == '\n' || strage[i] == '\0')
+	while (strage[i] != '\n' && strage[i] != '\0')
 		i++;
 	line = malloc(sizeof(char) * (i + 1 + (strage[i] == '\n')));
 	if (line == NULL)
