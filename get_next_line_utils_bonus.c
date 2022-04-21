@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shwatana <shwatana@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 21:32:44 by shwatana          #+#    #+#             */
-/*   Updated: 2022/04/22 00:51:33 by shwatana         ###   ########.fr       */
+/*   Updated: 2022/04/22 00:56:05 by shwatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*ft_strchr(char *str, int c)
 	return (NULL);
 }
 
-void	*ft_memmove(void *dst, void *src, size_t size)
+static void	*ft_memmove(void *dst, void *src, size_t size)
 {
 	unsigned char	*dst_p;
 	unsigned char	*src_p;
@@ -69,7 +69,7 @@ void	*ft_memmove(void *dst, void *src, size_t size)
 	return (dst_p);
 }
 
-char	*ft_strdup(char *str)
+static char	*ft_strdup(char *str)
 {
 	size_t		len;
 	char		*new_char;
