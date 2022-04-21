@@ -6,7 +6,7 @@
 /*   By: shwatana <shwatana@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 10:36:52 by shwatana          #+#    #+#             */
-/*   Updated: 2022/04/21 02:24:28 by shwatana         ###   ########.fr       */
+/*   Updated: 2022/04/21 19:26:10 by shwatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,13 @@ char	*ft_strage(char *strage)
 static char	*read_buf(char *strage, int fd)
 {
 	char	*buf;
-	size_t	read_size;
+	ssize_t	read_size;
 
-	while (true)
+	buf = (char *)malloc(sizeof(char) * ((size_t)BUFFER_SIZE + 1));
+	if (buf == NULL)
+		return (NULL);
+	while (!ft_strchr(strage, '\n'))
 	{
-		buf = (char *)malloc(sizeof(char) * ((size_t)BUFFER_SIZE + 1));
-		if (buf == NULL)
-			return (NULL);
 		read_size = read(fd, buf, BUFFER_SIZE);
 		if (read_size <= 0)
 		{
@@ -105,8 +105,9 @@ static char	*read_buf(char *strage, int fd)
 		}
 		buf[read_size] = '\0';
 		strage = ft_strjoin(strage, buf);
-		free(buf);
 		if (strage == NULL)
 			return (NULL);
 	}
+	free(buf);
+	return (strage);
 }
