@@ -6,7 +6,7 @@
 /*   By: shwatana <shwatana@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 10:36:52 by shwatana          #+#    #+#             */
-/*   Updated: 2022/04/22 01:31:38 by shwatana         ###   ########.fr       */
+/*   Updated: 2022/04/22 01:35:19 by shwatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static char	*format_line(char *strage)
 char	*ft_strage(char *strage)
 {
 	size_t	size;
-	int		c;
+	size_t	i;
 	char	*new_strage;
 
 	size = 0;
@@ -77,10 +77,10 @@ char	*ft_strage(char *strage)
 	if (new_strage == NULL)
 		return (NULL);
 	size++;
-	c = 0;
+	i = 0;
 	while (strage[size] != '\0')
-		new_strage[c++] = strage[size++];
-	new_strage[c] = '\0';
+		new_strage[i++] = strage[size++];
+	new_strage[i] = '\0';
 	free(strage);
 	return (new_strage);
 }
