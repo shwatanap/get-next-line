@@ -6,7 +6,7 @@
 /*   By: shwatana <shwatana@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 10:36:52 by shwatana          #+#    #+#             */
-/*   Updated: 2022/04/21 19:33:09 by shwatana         ###   ########.fr       */
+/*   Updated: 2022/04/22 01:31:38 by shwatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char	*format_line(char *strage)
 	char	*line;
 
 	i = 0;
-	if (!strage[i])
+	if (strage[i] == '\0')
 		return (NULL);
 	while (strage[i] != '\n' && strage[i] != '\0')
 		i++;
@@ -45,14 +45,14 @@ static char	*format_line(char *strage)
 	if (line == NULL)
 		return (NULL);
 	i = 0;
-	while (strage[i] && strage[i] != '\n')
+	while (strage[i] != '\n' && strage[i] != '\0')
 	{
 		line[i] = strage[i];
 		i++;
 	}
 	if (strage[i] == '\n')
 	{
-		line[i] = strage[i];
+		line[i] = '\n';
 		i++;
 	}
 	line[i] = '\0';
@@ -66,7 +66,7 @@ char	*ft_strage(char *strage)
 	char	*new_strage;
 
 	size = 0;
-	while (strage[size] && strage[size] != '\n')
+	while (strage[size] != '\0' && strage[size] != '\n')
 		size++;
 	if (strage[size] == '\0')
 	{
@@ -78,7 +78,7 @@ char	*ft_strage(char *strage)
 		return (NULL);
 	size++;
 	c = 0;
-	while (strage[size])
+	while (strage[size] != '\0')
 		new_strage[c++] = strage[size++];
 	new_strage[c] = '\0';
 	free(strage);
@@ -95,7 +95,7 @@ static char	*read_buf(char *strage, int fd)
 		return (NULL);
 	while (!ft_strchr(strage, '\n'))
 	{
-		read_size = read(fd, buf, BUFFER_SIZE);
+		read_size = read(fd, buf, (size_t)BUFFER_SIZE);
 		if (read_size <= 0)
 		{
 			free(buf);
