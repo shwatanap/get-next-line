@@ -6,7 +6,7 @@
 /*   By: shwatana <shwatana@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 10:36:52 by shwatana          #+#    #+#             */
-/*   Updated: 2022/04/22 01:35:19 by shwatana         ###   ########.fr       */
+/*   Updated: 2022/04/22 01:41:12 by shwatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static char	*read_buf(char *strage, int fd)
 	buf = (char *)malloc(sizeof(char) * ((size_t)BUFFER_SIZE + 1));
 	if (buf == NULL)
 		return (NULL);
-	while (!ft_strchr(strage, '\n'))
+	while (ft_strchr(strage, '\n') == NULL)
 	{
 		read_size = read(fd, buf, (size_t)BUFFER_SIZE);
 		if (read_size <= 0)
