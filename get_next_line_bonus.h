@@ -6,7 +6,7 @@
 /*   By: shwatana <shwatana@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 19:36:55 by shwatana          #+#    #+#             */
-/*   Updated: 2022/04/22 01:07:08 by shwatana         ###   ########.fr       */
+/*   Updated: 2022/04/24 22:03:17 by shwatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,12 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+// get_next_line_bonus.c
+char	*get_next_line(int fd);
+
+// get_next_line_utils_bonus.c
 size_t	ft_strlen(char *str);
 char	*ft_strchr(char *s, int c);
 char	*ft_strjoin(char *s1, char *s2);
-char	*get_next_line(int fd);
 
 #endif
