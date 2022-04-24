@@ -6,11 +6,11 @@
 /*   By: shwatana <shwatana@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 21:32:44 by shwatana          #+#    #+#             */
-/*   Updated: 2022/04/22 00:56:05 by shwatana         ###   ########.fr       */
+/*   Updated: 2022/04/24 18:21:45 by shwatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(char *s)
 {
@@ -71,8 +71,8 @@ static void	*ft_memmove(void *dst, void *src, size_t size)
 
 static char	*ft_strdup(char *str)
 {
-	size_t		len;
-	char		*new_char;
+	size_t	len;
+	char	*new_char;
 
 	if (str == NULL)
 		return (NULL);
