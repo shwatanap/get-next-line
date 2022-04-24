@@ -6,7 +6,7 @@
 /*   By: shwatana <shwatana@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 21:32:44 by shwatana          #+#    #+#             */
-/*   Updated: 2022/04/22 00:51:33 by shwatana         ###   ########.fr       */
+/*   Updated: 2022/04/24 18:23:37 by shwatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ void	*ft_memmove(void *dst, void *src, size_t size)
 
 char	*ft_strdup(char *str)
 {
-	size_t		len;
-	char		*new_char;
+	size_t	len;
+	char	*new_char;
 
 	if (str == NULL)
 		return (NULL);
