@@ -6,7 +6,7 @@
 /*   By: shwatana <shwatana@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 10:36:52 by shwatana          #+#    #+#             */
-/*   Updated: 2022/04/24 22:00:35 by shwatana         ###   ########.fr       */
+/*   Updated: 2022/05/10 13:19:38 by shwatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	static char	*strage;
 
-	if (fd < 0 || 256 < fd || (size_t)BUFFER_SIZE <= 0)
+	if (fd < 0 || 256 <= fd || (size_t)BUFFER_SIZE <= 0)
 		return (NULL);
 	strage = read_buf(strage, fd);
 	if (strage == NULL)
@@ -41,7 +41,7 @@ static char	*format_line(char *strage)
 		return (NULL);
 	while (strage[i] != '\n' && strage[i] != '\0')
 		i++;
-	line = malloc(sizeof(char) * (i + 1 + (strage[i] == '\n')));
+	line = (char *)malloc(sizeof(char) * (i + 1 + (strage[i] == '\n')));
 	if (line == NULL)
 		return (NULL);
 	i = 0;
