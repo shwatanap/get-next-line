@@ -1,0 +1,4 @@
+/* text1.txt */
+Hello!!
+How are you?
+Bye :D
