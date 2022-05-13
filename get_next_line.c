@@ -6,7 +6,7 @@
 /*   By: shwatana <shwatana@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 10:36:52 by shwatana          #+#    #+#             */
-/*   Updated: 2022/05/13 22:47:04 by shwatana         ###   ########.fr       */
+/*   Updated: 2022/05/14 01:51:02 by shwatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,33 @@ char	*get_next_line(int fd)
 	line = format_line(strage);
 	strage = ft_strage(strage);
 	return (line);
+}
+
+static char	*read_buf(char *strage, int fd)
+{
+	char	*buf;
+	ssize_t	read_size;
+
+	buf = (char *)malloc(sizeof(char) * ((size_t)BUFFER_SIZE + 1));
+	if (buf == NULL)
+		return (NULL);
+	while (ft_strchr(strage, '\n') == NULL)
+	{
+		read_size = read(fd, buf, (size_t)BUFFER_SIZE);
+		if (read_size <= 0)
+		{
+			free(buf);
+			if (read_size == 0)
+				return (strage);
+			return (NULL);
+		}
+		buf[read_size] = '\0';
+		strage = ft_strjoin(strage, buf);
+		if (strage == NULL)
+			return (NULL);
+	}
+	free(buf);
+	return (strage);
 }
 
 static char	*format_line(char *strage)
@@ -87,31 +114,4 @@ static char	*ft_strage(char *strage)
 	new_strage[i] = '\0';
 	free(strage);
 	return (new_strage);
-}
-
-static char	*read_buf(char *strage, int fd)
-{
-	char	*buf;
-	ssize_t	read_size;
-
-	buf = (char *)malloc(sizeof(char) * ((size_t)BUFFER_SIZE + 1));
-	if (buf == NULL)
-		return (NULL);
-	while (ft_strchr(strage, '\n') == NULL)
-	{
-		read_size = read(fd, buf, (size_t)BUFFER_SIZE);
-		if (read_size <= 0)
-		{
-			free(buf);
-			if (read_size == 0)
-				return (strage);
-			return (NULL);
-		}
-		buf[read_size] = '\0';
-		strage = ft_strjoin(strage, buf);
-		if (strage == NULL)
-			return (NULL);
-	}
-	free(buf);
-	return (strage);
 }
