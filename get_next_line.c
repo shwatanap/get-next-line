@@ -6,7 +6,7 @@
 /*   By: shwatana <shwatana@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 10:36:52 by shwatana          #+#    #+#             */
-/*   Updated: 2022/05/10 13:19:38 by shwatana         ###   ########.fr       */
+/*   Updated: 2022/05/13 22:47:04 by shwatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ char	*get_next_line(int fd)
 	char		*line;
 	static char	*strage;
 
-	if (fd < 0 || 256 <= fd || (size_t)BUFFER_SIZE <= 0)
+	if (fd < 0 || 256 <= fd || read(fd, NULL, 0) < 0
+		|| (size_t)BUFFER_SIZE <= 0)
 		return (NULL);
 	strage = read_buf(strage, fd);
 	if (strage == NULL)
