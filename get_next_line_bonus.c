@@ -6,33 +6,33 @@
 /*   By: shwatana <shwatana@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 10:36:52 by shwatana          #+#    #+#             */
-/*   Updated: 2022/05/14 01:53:08 by shwatana         ###   ########.fr       */
+/*   Updated: 2022/06/13 12:55:18 by shwatana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
 static char	*read_buf(char *str, int fd);
-static char	*format_line(char *strage);
-static char	*ft_strage(char *strage);
+static char	*format_line(char *storage);
+static char	*ft_storage(char *storage);
 
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*strage[256];
+	static char	*storage[256];
 
 	if (fd < 0 || 256 <= fd || read(fd, NULL, 0) < 0
 		|| (size_t)BUFFER_SIZE <= 0)
 		return (NULL);
-	strage[fd] = read_buf(strage[fd], fd);
-	if (strage[fd] == NULL)
+	storage[fd] = read_buf(storage[fd], fd);
+	if (storage[fd] == NULL)
 		return (NULL);
-	line = format_line(strage[fd]);
-	strage[fd] = ft_strage(strage[fd]);
+	line = format_line(storage[fd]);
+	storage[fd] = ft_storage(storage[fd]);
 	return (line);
 }
 
-static char	*read_buf(char *strage, int fd)
+static char	*read_buf(char *storage, int fd)
 {
 	char	*buf;
 	ssize_t	read_size;
@@ -40,45 +40,45 @@ static char	*read_buf(char *strage, int fd)
 	buf = (char *)malloc(sizeof(char) * ((size_t)BUFFER_SIZE + 1));
 	if (buf == NULL)
 		return (NULL);
-	while (ft_strchr(strage, '\n') == NULL)
+	while (ft_strchr(storage, '\n') == NULL)
 	{
 		read_size = read(fd, buf, (size_t)BUFFER_SIZE);
 		if (read_size <= 0)
 		{
 			free(buf);
 			if (read_size == 0)
-				return (strage);
+				return (storage);
 			return (NULL);
 		}
 		buf[read_size] = '\0';
-		strage = ft_strjoin(strage, buf);
-		if (strage == NULL)
+		storage = ft_strjoin(storage, buf);
+		if (storage == NULL)
 			return (NULL);
 	}
 	free(buf);
-	return (strage);
+	return (storage);
 }
 
-static char	*format_line(char *strage)
+static char	*format_line(char *storage)
 {
 	size_t	i;
 	char	*line;
 
 	i = 0;
-	if (strage[i] == '\0')
+	if (storage[i] == '\0')
 		return (NULL);
-	while (strage[i] != '\n' && strage[i] != '\0')
+	while (storage[i] != '\n' && storage[i] != '\0')
 		i++;
-	line = malloc(sizeof(char) * (i + 1 + (strage[i] == '\n')));
+	line = malloc(sizeof(char) * (i + 1 + (storage[i] == '\n')));
 	if (line == NULL)
 		return (NULL);
 	i = 0;
-	while (strage[i] != '\n' && strage[i] != '\0')
+	while (storage[i] != '\n' && storage[i] != '\0')
 	{
-		line[i] = strage[i];
+		line[i] = storage[i];
 		i++;
 	}
-	if (strage[i] == '\n')
+	if (storage[i] == '\n')
 	{
 		line[i] = '\n';
 		i++;
@@ -87,28 +87,28 @@ static char	*format_line(char *strage)
 	return (line);
 }
 
-static char	*ft_strage(char *strage)
+static char	*ft_storage(char *storage)
 {
 	size_t	size;
 	size_t	i;
-	char	*new_strage;
+	char	*new_storage;
 
 	size = 0;
-	while (strage[size] != '\0' && strage[size] != '\n')
+	while (storage[size] != '\0' && storage[size] != '\n')
 		size++;
-	if (strage[size] == '\0')
+	if (storage[size] == '\0')
 	{
-		free(strage);
+		free(storage);
 		return (NULL);
 	}
-	new_strage = (char *)malloc(sizeof(char) * (ft_strlen(strage) - size + 1));
-	if (new_strage == NULL)
+	new_storage = malloc(sizeof(char) * (ft_strlen(storage) - size + 1));
+	if (new_storage == NULL)
 		return (NULL);
 	size++;
 	i = 0;
-	while (strage[size] != '\0')
-		new_strage[i++] = strage[size++];
-	new_strage[i] = '\0';
-	free(strage);
-	return (new_strage);
+	while (storage[size] != '\0')
+		new_storage[i++] = storage[size++];
+	new_storage[i] = '\0';
+	free(storage);
+	return (new_storage);
 }
